@@ -1,0 +1,27 @@
+<div
+  class="mx-auto h-screen flex items-center justify-center bg-gradient-to-r from-orange-200 to-red-400"
+>
+  <div class="card bg-white shadow-lg rounded-lg p-8 m-3 max-w-md text-center">
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-6">
+      Welcome to Presidential Election
+    </h1>
+
+    <button
+      type="submit"
+      class="w-full flex items-center justify-center bg-white border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-gray-700 font-semibold py-3 rounded-lg mb-4 shadow-md transition duration-150 ease-in-out"
+      (click)="loginWithGoogle()"
+    >
+      <img src="assets/google.png" alt="Google Logo" class="w-6 h-6 mr-2" />
+      Login with Google
+    </button>
+
+    <button
+      type="submit"
+      class="w-full flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
+      (click)="loginWithMetamask()"
+    >
+      <img src="assets/metamask.png" alt="MetaMask Logo" class="w-6 h-6 mr-2" />
+      Login with MetaMask
+    </button>
+  </div>
+</div>
