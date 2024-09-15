@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { toast } from 'ngx-sonner';
 
 @Injectable({
@@ -7,32 +6,47 @@ import { toast } from 'ngx-sonner';
 })
 export class WalletService {
   private readonly ethereum;
-  constructor(@Inject(HttpClient) private http: HttpClient) {
+  constructor() {
     const { ethereum } = <any>window;
     this.ethereum = ethereum;
   }
 
-  async connectWallet() {
+  async connectWallet(): Promise<Array<string>> {
     try {
-      if (!this.ethereum) return toast.error('Please install MetaMask');
+      if (!this.ethereum) {
+        toast.error('Please install MetaMask');
+        throw new Error('Please install MetaMask');
+      }
+
       const accounts = (await this.ethereum.request({
         method: 'eth_requestAccounts',
       })) as Array<string>;
       return accounts;
     } catch (error) {
-      throw new Error('No ethereum object found');
+      throw error;
     }
   }
 
-  async checkWalletConnected() {
+  async checkWalletConnected(): Promise<Array<string>> {
     try {
-      if (!this.ethereum) return toast.error('Please install MetaMask');
+      if (!this.ethereum) {
+        toast.error('Please install MetaMask');
+        throw new Error('Please install MetaMask');
+      }
+
       const accounts = (await this.ethereum.request({
         method: 'eth_accounts',
       })) as Array<string>;
       return accounts;
-    } catch (e) {
-      throw new Error('No ethereum object found');
+    } catch (error) {
+      throw error;
     }
+  }
+
+  async getSignature(message: string, walletAddress: string): Promise<string> {
+    return this.ethereum.request({
+      method: 'personal_sign',
+      params: [message, walletAddress],
+    });
   }
 }
